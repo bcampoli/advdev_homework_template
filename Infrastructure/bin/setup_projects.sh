@@ -23,8 +23,8 @@ oc policy add-role-to-user admin ${USER} -n ${GUID}-parks-prod
 
 #Doesnt work for some reason#
 
-#oc annotate namespace ${GUID}-nexus      openshift.io/requester=${USER} --overwrite
-#oc annotate namespace ${GUID}-sonarqube  openshift.io/requester=${USER} --overwrite
-#oc annotate namespace ${GUID}-jenkins    openshift.io/requester=${USER} --overwrite
-#oc annotate namespace ${GUID}-parks-dev  openshift.io/requester=${USER} --overwrite
-#oc annotate namespace ${GUID}-parks-prod openshift.io/requester=${USER} --overwrite
+oc annotate namespace ${GUID}-nexus      openshift.io/requester=${USER} --overwrite
+oc annotate namespace ${GUID}-sonarqube  openshift.io/requester=${USER} --overwrite
+oc annotate namespace ${GUID}-jenkins    openshift.io/requester=${USER} --overwrite
+oc annotate namespace ${GUID}-parks-dev  openshift.io/requester=${USER} --overwrite
+oc annotate namespace ${GUID}-parks-prod openshift.io/requester=${USER} --overwrite

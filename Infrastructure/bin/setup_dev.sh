@@ -16,9 +16,9 @@ oc project ${GUID}-parks-dev
 ##Deploy front end
 
 #Build parks-map binary with maven
-pushd ../../ParksMap
-mvn -s ../nexus_settings.xml clean package spring-boot:repackage -DskipTests -Dcom.redhat.xpaas.repo.redhatga
-popd
+#pushd ../../ParksMap
+#mvn -s ../nexus_settings.xml clean package spring-boot:repackage -DskipTests -Dcom.redhat.xpaas.repo.redhatga
+#popd
 
 #Allow application permission to discover available routes
 oc policy add-role-to-user view --serviceaccount=default
@@ -63,9 +63,9 @@ oc new-app -f ../templates/mongodb_persistent.json --param MEMORY_LIMIT=$MEMORY_
 #Build and Deploy National Parks
 
 #Build national-parks binary with maven
-pushd ../../Nationalparks
-mvn -s ../nexus_settings.xml clean package -DskipTests=true
-popd
+#pushd ../../Nationalparks
+#mvn -s ../nexus_settings.xml clean package -DskipTests=true
+#popd
 
 oc new-build --binary=true --name=national-parks-dev --image-stream=redhat-openjdk18-openshift:1.2
 oc start-build national-parks-dev --from-file=../../Nationalparks/target/nationalparks.jar --follow
@@ -88,9 +88,9 @@ oc rollout resume dc national-parks-dev
 #Build and Deploy MLB Parks
 
 #Build mlb-parks binary with maven
-pushd ../../MLBParks
-mvn -s ../nexus_settings.xml clean package -DskipTests=true
-popd
+#pushd ../../MLBParks
+#mvn -s ../nexus_settings.xml clean package -DskipTests=true
+#popd
 
 oc new-build --binary=true --name=mlb-parks-dev --image-stream=jboss-eap70-openshift:1.7
 oc start-build mlb-parks-dev --from-file=../../MLBParks/target/mlbparks.war --follow
