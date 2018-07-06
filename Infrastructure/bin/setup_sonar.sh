@@ -11,6 +11,5 @@ echo "Setting up Sonarqube in project $GUID-sonarqube"
 
 # Code to set up the SonarQube project.
 # Ideally just calls a template
-# oc new-app -f ../templates/sonarqube.yaml --param .....
-
-# To be Implemented by Student
+oc project ${GUID}-sonarqube
+oc new-app -f ../templates/sonar_template.yaml --param GUID=${GUID} POSTGRESQL_USER=sonar --param POSTGRESQL_PASSWORD=sonar --param POSTGRESQL_DATABASE=sonar --param POSTGRESQL_VOLUME_CAPACITY=4Gi 
