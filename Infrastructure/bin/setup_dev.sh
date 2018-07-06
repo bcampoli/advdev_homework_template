@@ -25,7 +25,7 @@ oc policy add-role-to-user view --serviceaccount=default
 
 #Create build for parks-map and deploy
 oc new-build --binary=true --name=parksmap-dev --image-stream=redhat-openjdk18-openshift:1.2
-oc start-build parksmap-dev --from-file=../../ParksMap/target/parksmap.jar --follow
+oc start-build parksmap-dev --from-file=./ParksMap/target/parksmap.jar --follow
 oc new-app parksmap-dev -l type=parksmap-frontend -e APPNAME="ParksMap (Dev)"
 
 oc rollout pause dc parksmap-dev
@@ -68,7 +68,7 @@ oc new-app -f ../templates/mongodb_persistent.json --param MEMORY_LIMIT=$MEMORY_
 #popd
 
 oc new-build --binary=true --name=national-parks-dev --image-stream=redhat-openjdk18-openshift:1.2
-oc start-build national-parks-dev --from-file=../../Nationalparks/target/nationalparks.jar --follow
+oc start-build national-parks-dev --from-file=./Nationalparks/target/nationalparks.jar --follow
 oc new-app national-parks-dev -l type=parksmap-backend -e APPNAME="National Parks (Dev)" \
 -e DB_HOST=$DATABASE_SERVICE_NAME \
 -e DB_PORT=27017 \
@@ -93,7 +93,7 @@ oc rollout resume dc national-parks-dev
 #popd
 
 oc new-build --binary=true --name=mlb-parks-dev --image-stream=jboss-eap70-openshift:1.7
-oc start-build mlb-parks-dev --from-file=../../MLBParks/target/mlbparks.war --follow
+oc start-build mlb-parks-dev --from-file=./MLBParks/target/mlbparks.war --follow
 oc new-app mlb-parks-dev -l type=parksmap-backend -e APPNAME="MLB Parks (Dev)" \
 -e DB_HOST=$DATABASE_SERVICE_NAME \
 -e DB_PORT=27017 \
