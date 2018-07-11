@@ -28,22 +28,10 @@ oc project ${GUID}-jenkins
 
 # To be Implemented by Student
 
-oc new-app -f ../templates/jenkins_template.yaml --param VOLUME_CAPACITY=4gi JENKINS_VERSION=latest SERVICE_NAME=${GUID}-jenkins
+oc new-app -f ../templates/jenkins_template.yaml --param VOLUME_CAPACITY=4gi JENKINS_VERSION=latest SERVICE_NAME=${GUID}-jenkins -n ${GUID}-jenkins
 
-oc create -f ../templates/dev-pipeline.yaml
-oc set env buildconfigs/dev-pipeline GUID="$GUID"
+oc new-app --strategy=docker ./Infrastructure/docker/ -n ${GUID}-jenkins
 
 
-pushd ../docker-files/skopeo
-docker build . -t jenkins-slave-appdev:v3.9
-popd
 
-docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock --name skopeo_bash jenkins-slave-appdev:v3.9 bash
-
-docker exec -it skopeo_bash \
-  skopeo copy --dest-tls-verify=false --dest-creds=$(oc whoami):$(oc whoami -t) \
-    docker-daemon:jenkins-slave-appdev:v3.9 \
-    "docker://docker-registry-default.apps.na39.openshift.opentlc.com/${GUID}-jenkins/jenkins-slave-appdev:latest"
-
-docker rm -f skopeo_bash
 

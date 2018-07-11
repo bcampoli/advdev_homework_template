@@ -19,7 +19,7 @@ echo "Setting up Nexus in project $GUID-nexus"
 
 # Ideally just calls a template
 oc project ${GUID}-nexus
-oc new-app -f ./Infrastructure/templates/nexus_template.yaml --param VOLUME_CAPACITY=2Gi NEXUS_VERSION=3.6.0 SERVICE_NAME=$GUID-nexus
+oc new-app -f ./Infrastructure/templates/nexus_template.yaml --param VOLUME_CAPACITY=2Gi NEXUS_VERSION=3.6.0 SERVICE_NAME=$GUID-nexus -n ${GUID}-nexus
 
 while : ; do
     echo "Checking if Nexus is Ready..."
