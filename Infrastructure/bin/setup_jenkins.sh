@@ -33,11 +33,11 @@ oc new-app -f ../templates/jenkins_template.yaml --param VOLUME_CAPACITY=4gi JEN
 oc new-app --strategy=docker ./Infrastructure/docker/skopeo -n ${GUID}-jenkins
 
 #MLBPark pipeline BuildConfig
-oc create -f ./Infrastructure/templates/mlbparks-pipeline.yaml -n ${GUID}-jenkins
+oc create -f ./Infrastructure/templates/mlbparks-pipeline.yaml -e GUID=${GUID} -e CLUSTER=${CLUSTER} -n ${GUID}-jenkins
 #NationalParks pipeline BuildConfig
-oc create -f ./Infrastructure/templates/nationalparks-pipeline.yaml -n ${GUID}-jenkins
+oc create -f ./Infrastructure/templates/nationalparks-pipeline.yaml -e GUID=${GUID} -e CLUSTER=${CLUSTER} -n ${GUID}-jenkins
 #Parksmap pipeline BuildConfig
-oc create -f ./Infrastructure/templates/parksmap-pipeline.yaml -e GUID="MLB Parks (Dev)" -n ${GUID}-jenkins
+oc create -f ./Infrastructure/templates/parksmap-pipeline.yaml -e GUID=${GUID} -e CLUSTER=${CLUSTER} -n ${GUID}-jenkins
 #Jenkins slave BuildConfig 
 oc new-app -f ./Infrastructure/templates/jenkins-config.yaml --param GUID=${GUID}
 
