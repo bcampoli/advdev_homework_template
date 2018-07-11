@@ -30,7 +30,17 @@ oc project ${GUID}-jenkins
 
 oc new-app -f ../templates/jenkins_template.yaml --param VOLUME_CAPACITY=4gi JENKINS_VERSION=latest SERVICE_NAME=${GUID}-jenkins -n ${GUID}-jenkins
 
-oc new-app --strategy=docker ./Infrastructure/docker/ -n ${GUID}-jenkins
+oc new-app --strategy=docker ./Infrastructure/docker/skopeo -n ${GUID}-jenkins
+
+#MLBPark pipeline BuildConfig
+oc create -f ./Infrastructure/templates/mlbparks-pipeline.yaml -n ${GUID}-jenkins
+#NationalParks pipeline BuildConfig
+oc create -f ./Infrastructure/templates/nationalparks-pipeline.yaml -n ${GUID}-jenkins
+#Parksmap pipeline BuildConfig
+oc create -f ./Infrastructure/templates/parksmap-pipeline.yaml -e GUID="MLB Parks (Dev)" -n ${GUID}-jenkins
+#Jenkins slave BuildConfig 
+oc new-app -f ./Infrastructure/templates/jenkins-config.yaml --param GUID=${GUID}
+
 
 
 
