@@ -28,7 +28,7 @@ oc project ${GUID}-jenkins
 
 # To be Implemented by Student
 
-oc new-app -f ./Infrastructure/templates/jenkins_template.yaml --param VOLUME_CAPACITY=4gi --param JENKINS_VERSION=latest --param SERVICE_NAME=${GUID}-jenkins -n ${GUID}-jenkins
+oc new-app -f ./Infrastructure/templates/jenkins_template.yaml --param VOLUME_CAPACITY=4Gi --param JENKINS_VERSION=latest --param SERVICE_NAME=${GUID}-jenkins -n ${GUID}-jenkins
 
 oc new-app --strategy=docker ./Infrastructure/docker-files/skopeo -n ${GUID}-jenkins
 
