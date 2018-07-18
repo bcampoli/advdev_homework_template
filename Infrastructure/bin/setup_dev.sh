@@ -25,7 +25,7 @@ MONGODB_ADMIN_PASSWORD="mongodb"
 VOLUME_CAPACITY="1Gi"
 MONGODB_VERSION="3.2" #could be latest
 
-oc new-app -f ../templates/mongodb_persistent.json --param MEMORY_LIMIT=$MEMORY_LIMIT \
+oc new-app -f ./Infrastructure/templates/mongodb_persistent.json --param MEMORY_LIMIT=$MEMORY_LIMIT \
 --param NAMESPACE=${NAMESPACE} \
 --param DATABASE_SERVICE_NAME=${DATABASE_SERVICE_NAME} \
 --param MONGODB_USER=${MONGODB_USER} \
