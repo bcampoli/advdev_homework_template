@@ -28,16 +28,19 @@ oc project ${GUID}-jenkins
 
 # To be Implemented by Student
 
-oc new-app -f ./Infrastructure/templates/jenkins_template.yaml --param VOLUME_CAPACITY=4gi JENKINS_VERSION=latest SERVICE_NAME=${GUID}-jenkins -n ${GUID}-jenkins
+oc new-app -f ./Infrastructure/templates/jenkins_template.yaml --param VOLUME_CAPACITY=4gi --param JENKINS_VERSION=latest --param SERVICE_NAME=${GUID}-jenkins -n ${GUID}-jenkins
 
-oc new-app --strategy=docker ./Infrastructure/docker/skopeo -n ${GUID}-jenkins
+oc new-app --strategy=docker ./Infrastructure/docker-files/skopeo -n ${GUID}-jenkins
 
 #MLBPark pipeline BuildConfig
-oc create -f ./Infrastructure/templates/mlbparks-pipeline.yaml -e GUID=${GUID} -e CLUSTER=${CLUSTER} -n ${GUID}-jenkins
+oc create -f ./Infrastructure/templates/mlbparks-pipeline.yaml
+oc env bc/mlbparks-pipeline GUID=${GUID} CLUSTER=${CLUSTER} ${GUID}-jenkins
 #NationalParks pipeline BuildConfig
-oc create -f ./Infrastructure/templates/nationalparks-pipeline.yaml -e GUID=${GUID} -e CLUSTER=${CLUSTER} -n ${GUID}-jenkins
+oc create -f ./Infrastructure/templates/nationalparks-pipeline.yaml
+oc env bc/nationalparks-pipeline GUID=${GUID} CLUSTER=${CLUSTER} ${GUID}-jenkins
 #Parksmap pipeline BuildConfig
-oc create -f ./Infrastructure/templates/parksmap-pipeline.yaml -e GUID=${GUID} -e CLUSTER=${CLUSTER} -n ${GUID}-jenkins
+oc create -f ./Infrastructure/templates/parksmap-pipeline.yaml
+oc env bc/nationalparks-pipeline GUID=${GUID} CLUSTER=${CLUSTER} ${GUID}-jenkins
 #Jenkins slave BuildConfig 
 oc new-app -f ./Infrastructure/templates/jenkins-config.yaml --param GUID=${GUID}
 
