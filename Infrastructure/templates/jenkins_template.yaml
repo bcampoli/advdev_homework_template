@@ -49,7 +49,7 @@ objects:
           - name: JENKINS_SERVICE_NAME
             value: jenkins
           - name: JNLP_SERVICE_NAME
-            value: jenkins-jnlp
+            value: ${SERVICE_NAME}
           image: registry.access.redhat.com/openshift3/jenkins-2-rhel7@sha256:fc9c7f4b766fe8203a9d792e4a7f99c8962b31da158591f62d3d26ea3904c641
           imagePullPolicy: IfNotPresent
           livenessProbe:
