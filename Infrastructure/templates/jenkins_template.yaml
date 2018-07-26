@@ -179,7 +179,7 @@ objects:
     labels:
       app: ${SERVICE_NAME}
       template: jenkins-persistent-template
-    name: ${SERVICE_NAME}
+    name: ${SERVICE_NAME}-jnlp
   spec:
     ports:
     - name: agent
